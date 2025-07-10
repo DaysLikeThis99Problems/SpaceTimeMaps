@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Soham Poshi <poshiyasoham2765@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+jupyter = "^1.0.0"
+requests = "^2.31.0"
+python-dotenv = "^1.0.0"
+tqdm = "^4.66.1"
+plotly = "^5.16.1"
+pydantic = "^2.5.0"
+
+
+[tool.poetry.group.dev.dependencies]
+nbstripout = "^0.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

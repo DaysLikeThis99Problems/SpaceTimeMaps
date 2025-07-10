@@ -1,0 +1,57 @@
+:root {
+  --menu-width-sm: 85vw;
+  --menu-width-md: 450px;
+  --menu-width-lg: 600px;
+  --min-map-width: 320px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.map-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .menu-open .map-container {
+    width: calc(100% - var(--menu-width-sm));
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-open .map-container {
+    width: calc(100% - var(--menu-width-md));
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-open .map-container {
+    width: calc(100% - var(--menu-width-lg));
+  }
+}
+
+.menu-closed .map-container {
+  width: 100%;
+}
+
+/* Ensure the map takes full height of its container */
+.map-container > div {
+  height: 100% !important;
+  min-height: 400px;
+}
+
+/* Ensure Google Map takes full space */
+.map-container .google-map {
+  width: 100% !important;
+  height: 100% !important;
+}
