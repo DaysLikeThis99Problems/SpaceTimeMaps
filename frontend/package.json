@@ -23,7 +23,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --outDir build/"
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
