@@ -8,15 +8,17 @@ The 404 "Page not found" error was caused by several configuration issues:
 2. **Client-side routing**: React Router routes weren't being handled properly by Netlify
 3. **Missing redirects**: Netlify didn't know how to handle client-side routes
 4. **Vercel configuration**: The project was originally configured for Vercel, not Netlify
+5. **Build context**: Netlify couldn't find package.json due to incorrect build directory configuration
 
 ## Files created/modified
 
 1. **`public/_redirects`** - Tells Netlify to serve `index.html` for all routes
 2. **`public/_headers`** - Adds security headers and tests if Netlify is reading public files
-3. **`netlify.toml`** - Netlify configuration file
-4. **`package.json`** - Cleaned up dependencies and scripts for Vite-only build
-5. **`vite.config.ts`** - Updated to ensure proper build configuration and public file handling
-6. **Removed**: `vercel.json`, `reportWebVitals.ts`, `setupTests.ts` (Create React App remnants)
+3. **`netlify.toml`** - Netlify configuration file (both in frontend/ and root)
+4. **`.nvmrc`** - Specifies Node.js version for Netlify builds
+5. **`package.json`** - Cleaned up dependencies and scripts for Vite-only build
+6. **`vite.config.ts`** - Updated to ensure proper build configuration and public file handling
+7. **Removed**: `vercel.json`, `reportWebVitals.ts`, `setupTests.ts` (Create React App remnants)
 
 ## Deployment Steps
 
@@ -33,7 +35,8 @@ The 404 "Page not found" error was caused by several configuration issues:
 
 - **Build command**: `npm run build`
 - **Publish directory**: `dist` (Vite's default output)
-- **Node version**: 18 (specified in netlify.toml)
+- **Base directory**: `frontend` (where package.json is located)
+- **Node version**: 18 (specified in netlify.toml and .nvmrc)
 
 ## How the fix works
 
@@ -52,6 +55,8 @@ The 404 "Page not found" error was caused by several configuration issues:
 
 ## Troubleshooting
 
+### 404 Errors
+
 If you still get 404 errors:
 
 1. **Verify build output**: Make sure the `_redirects` and `_headers` files are in the `dist` folder after building
@@ -64,6 +69,16 @@ If you still get 404 errors:
    - Publish directory: `dist`
 5. **Check redirects**: In Netlify dashboard, go to Site settings > Build & deploy > Post processing > Asset optimization
 6. **Clear cache**: Sometimes Netlify caches old redirects - try clearing the cache or redeploying
+
+### Package.json Not Found Error
+
+If you get "package.json not found" errors during build:
+
+1. **Check base directory**: Ensure `netlify.toml` has `base = "frontend"`
+2. **Repository structure**: Verify your repository has the frontend folder at the root level
+3. **File location**: Make sure `package.json` is in the `frontend/` directory
+4. **Root netlify.toml**: There should be a `netlify.toml` file in both the root and frontend directories
+5. **Build logs**: Check Netlify build logs to see which directory it's trying to build from
 
 ## Common Issues
 

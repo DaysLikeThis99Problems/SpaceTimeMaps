@@ -7,9 +7,6 @@
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# The _redirects file in the public folder will handle routing
-# No need for duplicate redirects here
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
